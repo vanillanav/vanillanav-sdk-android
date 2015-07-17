@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import net.rosoftlab.nav.launcher.SampleTest;
+import net.rosoftlab.nav.launcher.VanillaNav;
 import net.rosoftlab.nav.launcher.sample.R;
 
 import butterknife.Bind;
@@ -23,6 +23,7 @@ public class SampleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sample_activity);
         ButterKnife.bind(this);
-        meaningView.setText(String.valueOf(SampleTest.meaningOfLife()));
+        meaningView.setText(String.valueOf(VanillaNav.meaningOfLife()));
+        VanillaNav.navigate(this, 3870, 8);
     }
 }
