@@ -2,12 +2,9 @@ package net.rosoftlab.vanillanavlauncher;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import net.rosoftlab.nav.launcher.VanillaNav;
 import net.rosoftlab.nav.launcher.sample.R;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -15,15 +12,16 @@ import butterknife.ButterKnife;
  * Email mail@adipascu.ro
  */
 public class SampleActivity extends Activity {
-    @Bind(R.id.meaningOfLife)
-    TextView meaningView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sample_activity);
         ButterKnife.bind(this);
-        meaningView.setText(String.valueOf(VanillaNav.meaningOfLife()));
-        VanillaNav.navigate(this, 3870, 8);
     }
+
+//    @OnClick(R.id.navigate)
+//    void nav() {
+//        VanillaNav.navigate(this, 3870, 8);
+//    }
 }
