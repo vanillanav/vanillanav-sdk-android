@@ -3,7 +3,7 @@ package net.rosoftlab.nav.ui.navigation;
 import android.content.Intent;
 import android.net.Uri;
 
-import net.rosoftlab.nav.launcher.BuildConfig;
+import net.rosoftlab.nav.loader.BuildConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;

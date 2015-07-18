@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "net.rosoftlab.nav.launcher.sample"
+        applicationId "net.rosoftlab.nav.loader.sample"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
@@ -28,5 +28,5 @@ dependencies {
     //    compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile project(':library')
-//    compile 'com.github.rosoftlab:vanillanav-launcher:ec5c27ce79'
+//    compile 'com.github.rosoftlab:vanillanav-loader:ec5c27ce79'
 }

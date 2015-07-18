@@ -1,4 +1,4 @@
-package net.rosoftlab.nav.launcher;
+package net.rosoftlab.nav.loader;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;

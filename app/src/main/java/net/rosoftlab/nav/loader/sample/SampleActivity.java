@@ -1,9 +1,7 @@
-package net.rosoftlab.vanillanavlauncher;
+package net.rosoftlab.nav.loader.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import net.rosoftlab.nav.launcher.sample.R;
 
 import butterknife.ButterKnife;
 

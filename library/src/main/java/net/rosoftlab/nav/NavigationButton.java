@@ -7,14 +7,15 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import net.rosoftlab.nav.launcher.R;
-import net.rosoftlab.nav.launcher.VanillaNav;
+import net.rosoftlab.nav.loader.R;
+import net.rosoftlab.nav.loader.VanillaNav;
 
 /**
  * Created by Adi Pascu on 7/18/2015.
@@ -153,7 +154,7 @@ public class NavigationButton extends ImageView {
         if (!TextUtils.isEmpty(referenceId) && venueId != null)
             setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(@NonNull View v) {
                     VanillaNav.navigate(getContext(), venueId, Long.parseLong(referenceId));
                 }
             });
