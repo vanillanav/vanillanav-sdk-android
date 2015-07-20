@@ -13,14 +13,28 @@ import net.rosoftlab.nav.ui.navigation.IntentFactory;
  */
 public class VanillaNav {
 
-    public static void navigate(@NonNull Context context, long venueId, long destinationId) {
+    /**
+     * Show the navigation screen for a location or event
+     *
+     * @param context     used to call {@link Context#startActivity(Intent)}
+     * @param venueId     from the <a href="http://www.vanillanav.com/admin">admin panel</a>
+     * @param referenceId used to reference a location or event, this field is editable in the <a href="http://www.vanillanav.com/admin">admin panel</a>
+     */
+    public static void navigate(@NonNull Context context, long venueId, long referenceId) {
+        navigate(context, venueId, referenceId, false);
+    }
+
+    private static void navigate(@NonNull Context context, long venueId, long destinationId, boolean showDetails) {
+        if (showDetails)
+            throw new UnsupportedOperationException();
         try {
             Intent intent = IntentFactory.destinationIntent(venueId, destinationId);
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Intent intent = IntentFactory.marketIntent();
             context.startActivity(intent);
+        } catch (SecurityException e) {
+            //invalid VN Version
         }
-
     }
 }

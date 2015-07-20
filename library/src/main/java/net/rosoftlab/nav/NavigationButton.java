@@ -26,6 +26,7 @@ public class NavigationButton extends ImageView {
     private IconSize iconSize;
     private boolean isInverted;
     private String referenceId;
+    private boolean hasStyle;
 
 
     public NavigationButton(Context context) {
@@ -97,11 +98,11 @@ public class NavigationButton extends ImageView {
         TypedArray attr = getContext().obtainStyledAttributes(
                 attrs, R.styleable.NavigationButton, defStyleAttr, defStyleRes);
 
-        if (!attr.getBoolean(R.styleable.NavigationButton_noStyle, false)) {
+        hasStyle = !attr.getBoolean(R.styleable.NavigationButton_noStyle, false);
+        if (hasStyle) {
             if (!hasPadding())
                 setDefaultPadding();
             setScaleType(ScaleType.CENTER);
-            setSelectableBackground();
         }
 
         if (getDrawable() == null) {
@@ -151,7 +152,8 @@ public class NavigationButton extends ImageView {
     }
 
     private void updateListener() {
-        if (!TextUtils.isEmpty(referenceId) && venueId != null)
+        boolean hasValidData = !TextUtils.isEmpty(referenceId) && venueId != null;
+        if (hasValidData)
             setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(@NonNull View v) {
@@ -160,6 +162,7 @@ public class NavigationButton extends ImageView {
             });
         else
             setOnClickListener(null);
+        setSelectableBackground(hasValidData);
     }
 
     private void setDefaultPadding() {
@@ -175,12 +178,17 @@ public class NavigationButton extends ImageView {
     }
 
 
-    private void setSelectableBackground() {
-        int[] attrs = new int[]{android.R.attr.selectableItemBackground};
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs);
-        int backgroundResource = typedArray.getResourceId(0, 0);
-        setBackgroundResource(backgroundResource);
-        typedArray.recycle();
+    private void setSelectableBackground(boolean isSelectable) {
+        if (!hasStyle)
+            return;
+        if (isSelectable) {
+            int[] attrs = new int[]{android.R.attr.selectableItemBackground};
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs);
+            int backgroundResource = typedArray.getResourceId(0, 0);
+            setBackgroundResource(backgroundResource);
+            typedArray.recycle();
+        } else
+            setBackgroundResource(0);
     }
 
     @Nullable

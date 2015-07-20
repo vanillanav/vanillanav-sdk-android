@@ -3,7 +3,10 @@ package net.rosoftlab.nav.loader.sample;
 import android.app.Activity;
 import android.os.Bundle;
 
+import net.rosoftlab.nav.loader.VanillaNav;
+
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Adi Pascu on 7/17/2015.
@@ -18,8 +21,8 @@ public class SampleActivity extends Activity {
         ButterKnife.bind(this);
     }
 
-//    @OnClick(R.id.navigate)
-//    void nav() {
-//        VanillaNav.navigate(this, 3870, 8);
-//    }
+    @OnClick(R.id.navigate)
+    void nav() {
+        VanillaNav.navigate(this, 3870, 8);
+    }
 }

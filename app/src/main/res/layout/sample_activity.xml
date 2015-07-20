@@ -6,11 +6,23 @@
     android:orientation="vertical">
 
     <net.rosoftlab.nav.NavigationButton
-        android:id="@+id/navigate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:iconSize="big"
         app:reference="8"
         app:venueId="3870" />
+
+    <FrameLayout
+        android:id="@+id/navigate"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="?android:attr/selectableItemBackground">
+
+        <net.rosoftlab.nav.NavigationButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:iconSize="big" />
+    </FrameLayout>
 
 </LinearLayout>
