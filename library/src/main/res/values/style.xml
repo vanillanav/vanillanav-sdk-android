@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NavigationButton">
+        <!-- Disables padding, icon scaling and the button background -->
+        <attr name="noStyle" format="boolean" />
+        <!-- Selects the icon size-->
+        <attr name="iconSize" format="enum">
+            <!-- 24dp icon -->
+            <enum name="small" value="0x01" />
+            <!-- 48dp icon -->
+            <enum name="big" value="0x02" />
+        </attr>
+        <!-- destination type -->
+        <attr name="type">
+            <!-- navigate to a location -->
+            <enum name="destination" value="0x01" />
+            <!-- navigate to an event -->
+            <enum name="event" value="0x02" />
+        </attr>
+        <!-- required field for navigation, add from the administrative tools -->
+        <attr name="venueId" format="integer" />
+        <!-- required field for navigation, add from the administrative tools -->
+        <attr name="reference" format="string" />
+        <!-- invert the icon for use on a dark background -->
+        <attr name="invert" format="boolean" />
+    </declare-styleable>
+</resources>
