@@ -20,21 +20,23 @@ public class VanillaNav {
      * @param venueId     from the <a href="http://www.vanillanav.com/admin">admin panel</a>
      * @param referenceId used to reference a location or event, this field is editable in the <a href="http://www.vanillanav.com/admin">admin panel</a>
      */
-    public static void navigate(@NonNull Context context, long venueId, long referenceId) {
-        navigate(context, venueId, referenceId, false);
+    public static boolean navigate(@NonNull Context context, long venueId, long referenceId) {
+        return navigate(context, venueId, referenceId, false);
     }
 
-    private static void navigate(@NonNull Context context, long venueId, long destinationId, boolean showDetails) {
+    private static boolean navigate(@NonNull Context context, long venueId, long destinationId, boolean showDetails) {
         if (showDetails)
             throw new UnsupportedOperationException();
         try {
             Intent intent = IntentFactory.destinationIntent(venueId, destinationId);
             context.startActivity(intent);
-        } catch (ActivityNotFoundException e) {
+            return true;
+        } catch (ActivityNotFoundException | IllegalArgumentException e) {
             Intent intent = IntentFactory.marketIntent();
             context.startActivity(intent);
         } catch (SecurityException e) {
             //invalid VN Version
         }
+        return false;
     }
 }
