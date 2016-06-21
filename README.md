@@ -39,7 +39,7 @@ Include the following button into the android xml layout.
         app:vn_destination_id="8"
         app:vn_venue_id="3870" />
 ```
-#### Trigger navigation programatically
+#### Trigger navigation programmatically
 Use the the static method provided by the sdk, the venueId and destinationId are generated using vanillaNAV Manager.
 ```java
 VanillaNav.navigate(activity, venueId, destinationId);
@@ -47,4 +47,4 @@ VanillaNav.navigate(activity, venueId, destinationId);
 
 #### Sample app
 
-This repository contains a [sample app](https://github.com/rosoftlab/vanillanav-sdk-android/tree/develop/sample) that demoes the functionality decribed above.
+This repository contains a [sample app](https://github.com/rosoftlab/vanillanav-sdk-android/tree/develop/sample) that demonstrates the functionality described above.
