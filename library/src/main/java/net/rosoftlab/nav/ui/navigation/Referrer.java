@@ -2,7 +2,7 @@ package net.rosoftlab.nav.ui.navigation;
 
 import android.net.Uri;
 
-import net.rosoftlab.nav.loader.BuildConfig;
+import net.rosoftlab.nav.sdk.BuildConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;

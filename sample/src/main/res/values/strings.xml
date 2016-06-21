@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VanillaNAV Loader Example</string>
+    <string name="button_activity">Simple Button</string>
+    <string name="custom_activity">Custom</string>
+    <string name="tap_to_nav">Tap to navigate</string>
+    <string name="tap_the_icon">Tap the symbol to navigate</string>
 </resources>

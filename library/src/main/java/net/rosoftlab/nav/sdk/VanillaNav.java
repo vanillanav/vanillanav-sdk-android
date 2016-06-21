@@ -1,9 +1,8 @@
-package net.rosoftlab.nav.loader;
+package net.rosoftlab.nav.sdk;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 
 import net.rosoftlab.nav.ui.navigation.IntentFactory;
 
@@ -14,19 +13,13 @@ import net.rosoftlab.nav.ui.navigation.IntentFactory;
 public class VanillaNav {
 
     /**
-     * Show the navigation screen for a location or event
+     * Show the navigation screen for a location
      *
      * @param context     used to call {@link Context#startActivity(Intent)}
      * @param venueId     from the <a href="http://www.vanillanav.com/admin">admin panel</a>
-     * @param referenceId used to reference a location or event, this field is editable in the <a href="http://www.vanillanav.com/admin">admin panel</a>
+     * @param destinationId used to reference a location, this field is editable in the <a href="http://www.vanillanav.com/admin">admin panel</a>
      */
-    public static boolean navigate(@NonNull Context context, long venueId, long referenceId) {
-        return navigate(context, venueId, referenceId, false);
-    }
-
-    private static boolean navigate(@NonNull Context context, long venueId, long destinationId, boolean showDetails) {
-        if (showDetails)
-            throw new UnsupportedOperationException();
+    public static boolean navigate(Context context, long venueId, long destinationId) {
         try {
             Intent intent = IntentFactory.destinationIntent(venueId, destinationId);
             context.startActivity(intent);

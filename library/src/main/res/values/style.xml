@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="NavigationButton">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <declare-styleable name="NavigationButton" tools:ignore="ResourceName">
         <!-- Disables padding, icon scaling and the button background -->
-        <attr name="noStyle" format="boolean" />
+        <attr name="vn_no_style" format="boolean" />
         <!-- Selects the icon size-->
-        <attr name="iconSize" format="enum">
+        <attr name="vn_icon_size" format="enum">
             <!-- 24dp icon -->
             <enum name="small" value="0x01" />
             <!-- 48dp icon -->
             <enum name="big" value="0x02" />
         </attr>
-        <!-- destination type -->
-        <attr name="type">
-            <!-- navigate to a location -->
-            <enum name="destination" value="0x01" />
-            <!-- navigate to an event -->
-            <enum name="event" value="0x02" />
-        </attr>
         <!-- required field for navigation, add from the administrative tools -->
-        <attr name="venueId" format="integer" />
+        <attr name="vn_venue_id" format="integer" />
         <!-- required field for navigation, add from the administrative tools -->
-        <attr name="reference" format="string" />
+        <attr name="vn_destination_id" format="string" />
         <!-- invert the icon for use on a dark background -->
-        <attr name="invert" format="boolean" />
+        <attr name="vn_invert" format="boolean" />
     </declare-styleable>
 </resources>

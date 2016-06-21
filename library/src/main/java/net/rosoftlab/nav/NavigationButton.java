@@ -4,18 +4,13 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import net.rosoftlab.nav.loader.R;
-import net.rosoftlab.nav.loader.VanillaNav;
+import net.rosoftlab.nav.sdk.R;
+import net.rosoftlab.nav.sdk.VanillaNav;
 
 /**
  * Created by Adi Pascu on 7/18/2015.
@@ -23,9 +18,7 @@ import net.rosoftlab.nav.loader.VanillaNav;
  */
 public class NavigationButton extends ImageView {
     private Long venueId;
-    private IconSize iconSize;
-    private boolean isInverted;
-    private String referenceId;
+    private String destinationId;
     private boolean hasStyle;
 
 
@@ -50,47 +43,32 @@ public class NavigationButton extends ImageView {
         init(attrs, defStyleAttr, defStyleRes);
     }
 
-    public boolean isInverted() {
-        return isInverted;
-    }
 
-    private void setInverted(boolean isInverted) {
-        this.isInverted = isInverted;
-        if (isInverted)
-            setColorFilter(getColor(R.color.vanillanav_white));
+    private void setTint(boolean isInverted) {
+        int colorRes = isInverted ? R.color.vn_white : R.color.vn_orange;
+        if (Build.VERSION.SDK_INT >= 23)
+            setColorFilter(getContext().getColor(colorRes));
         else
-            setColorFilter(getColor(R.color.vanillanav_orange));
+            //noinspection deprecation
+            setColorFilter(getResources().getColor(colorRes));
     }
 
-    @ColorInt
-    private int getColor(@ColorRes int color) {
-        if (isInEditMode()) { //fix for preview screen crashing
-            if (color == R.color.vanillanav_orange)
-                return 0xffe97300;
-            if (color == R.color.vanillanav_white)
-                return 0xffffffff;
-        }
-        return getResources().getColor(color);
-    }
-
-
-    @Nullable
     public Long getVenueId() {
         return venueId;
     }
 
-    public void setVenueId(@Nullable Long venueId) {
+    public void setVenueId(Long venueId) {
         this.venueId = venueId;
         updateListener();
     }
 
 
-    public String getReferenceId() {
-        return referenceId;
+    public String getDestinationId() {
+        return destinationId;
     }
 
-    public void setReferenceId(String referenceId) {
-        this.referenceId = referenceId;
+    public void setDestinationId(String destinationId) {
+        this.destinationId = destinationId;
         updateListener();
     }
 
@@ -98,7 +76,7 @@ public class NavigationButton extends ImageView {
         TypedArray attr = getContext().obtainStyledAttributes(
                 attrs, R.styleable.NavigationButton, defStyleAttr, defStyleRes);
 
-        hasStyle = !attr.getBoolean(R.styleable.NavigationButton_noStyle, false);
+        hasStyle = !attr.getBoolean(R.styleable.NavigationButton_vn_no_style, false);
         if (hasStyle) {
             if (!hasPadding())
                 setDefaultPadding();
@@ -106,37 +84,19 @@ public class NavigationButton extends ImageView {
         }
 
         if (getDrawable() == null) {
-            setInverted(attr.getBoolean(R.styleable.NavigationButton_invert, false));
-            int iconSizeInt = attr.getInteger(R.styleable.NavigationButton_iconSize, 0x01);
-            setIconSize(IconSize.valueOf(iconSizeInt));
+            setTint(attr.getBoolean(R.styleable.NavigationButton_vn_invert, false));
+            int iconSizeInt = attr.getInteger(R.styleable.NavigationButton_vn_icon_size, 0x01);
+            setImageResource(iconSizeInt == 0x02 ? R.drawable.vn_navigate_48 : R.drawable.vn_navigate_24);
         }
 
-        if (attr.hasValue(R.styleable.NavigationButton_venueId))
-            setVenueId((long) attr.getInteger(R.styleable.NavigationButton_venueId, 0));
+        if (attr.hasValue(R.styleable.NavigationButton_vn_venue_id))
+            setVenueId((long) attr.getInteger(R.styleable.NavigationButton_vn_venue_id, 0));
         else
             setVenueId(null);
-        setReferenceId(attr.getString(R.styleable.NavigationButton_reference));
+        setDestinationId(attr.getString(R.styleable.NavigationButton_vn_destination_id));
 
         attr.recycle();
 
-//        boolean customBackground = getBackground() != null;
-//        boolean customTint;
-//        if (Build.VERSION.SDK_INT >= 21)
-//            customTint = getImageTintList() != null;
-//        else
-//            customTint = getColorFilter() != null;
-//        boolean customImage = getDrawable() != null;
-//
-//        boolean customScaleType = getScaleType() != null;
-//
-//        if (!customBackground)
-//            setSelectableBackground();
-//        if (!customTint)
-//            setInverted();
-//        if (!customImage)
-//            setNavigationImage();
-//        if (!customScaleType)
-//            setScaleType(ScaleType.CENTER);
     }
 
     @SuppressWarnings("RedundantIfStatement")
@@ -152,12 +112,12 @@ public class NavigationButton extends ImageView {
     }
 
     private void updateListener() {
-        boolean hasValidData = !TextUtils.isEmpty(referenceId) && venueId != null;
+        boolean hasValidData = !TextUtils.isEmpty(destinationId) && venueId != null;
         if (hasValidData) {
             setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(@NonNull View v) {
-                    VanillaNav.navigate(getContext(), venueId, Long.parseLong(referenceId));
+                public void onClick(View v) {
+                    VanillaNav.navigate(getContext(), venueId, Long.parseLong(destinationId));
                 }
             });
         } else {
@@ -168,12 +128,12 @@ public class NavigationButton extends ImageView {
     }
 
     private void setDefaultPadding() {
-        int padding = (int) getDimension(R.dimen.navigationPadding);
+        int padding = (int) getDimension(R.dimen.vn_nav_padding);
         setPadding(padding, padding, padding, padding);
     }
 
-    private float getDimension(@DimenRes int id) {
-        if (isInEditMode() && id == R.dimen.navigationPadding) {
+    private float getDimension(int id) {
+        if (isInEditMode() && id == R.dimen.vn_nav_padding) {
             return (getContext().getResources().getDisplayMetrics().density * 16);
         }
         return getResources().getDimension(id);
@@ -192,37 +152,5 @@ public class NavigationButton extends ImageView {
         } else
             setBackgroundResource(0);
     }
-
-    @Nullable
-    public IconSize getIconSize() {
-        return iconSize;
-    }
-
-    public void setIconSize(@Nullable IconSize iconSize) {
-        this.iconSize = iconSize;
-        if (iconSize == null)
-            setImageResource(0);
-        else if (iconSize == IconSize.SMALL)
-            setImageResource(R.drawable.navigate_24);
-        else if (iconSize == IconSize.BIG)
-            setImageResource(R.drawable.navigate_48);
-        else
-            throw new UnsupportedOperationException();
-    }
-
-
-    enum IconSize {
-        SMALL,
-        BIG;
-
-        public static IconSize valueOf(int i) {
-            if (i == 0x01)
-                return SMALL;
-            if (i == 0x02)
-                return BIG;
-            throw new UnsupportedOperationException();
-        }
-    }
-
 
 }
